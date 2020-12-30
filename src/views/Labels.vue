@@ -1,6 +1,6 @@
 <template>
-  <div>Labels.vue
-    <Nav/>
+  <div>
+    <Layout>Labels.vue</Layout>
   </div>
 </template>
 
@@ -10,6 +10,3 @@ name: "Labels",
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
