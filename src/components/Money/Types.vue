@@ -8,47 +8,21 @@
 </template>
 
 <script lang="ts">
- import Vue from 'vue';
- import {Component} from 'vue-property-decorator';
- @Component({
-   props: {
-     propMessage: String
-   }
- })
- export default class Types extends Vue{
-   type = '-';
-   helloMsg = 'Hello,' + this.propMessage;
-   selectType(type: string) {
-     if (type !== '-' && type !== '+') {
-       throw new Error('type is unknown')
-     }
-     this.type = type
-   }
- }
-// export default {
-//   name: "Types"，
-//   props: ['xxx'],
-//       data()
-// {
-//   return {
-//     type: '-'  //减号表示支出，加号表示收入
-//   }
-// }，
-//   mounted()
-// {
-//
-// }
-// ,
-// method: {
-//   selectType(type)
-//   {
-//     if (type !== '-' && type !== '+') {
-//       throw new Error('type is unknown')
-//     }
-//     this.type = type
-//   }
-// }
-// }
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Types extends Vue {
+  type = '-';
+
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown');
+    }
+    this.type = type;
+  }
+}
+
 </script>
 
 <style lang="scss" scoped>
@@ -57,6 +31,7 @@
   display: flex;
   text-align: center;
   font-size: 24px;
+
   > li {
     width: 50%;
     height: 64px;
@@ -64,6 +39,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
+
     &.selected::after {
       content: '';
       position: absolute;
