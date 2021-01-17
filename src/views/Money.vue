@@ -16,11 +16,23 @@ import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component,Watch} from 'vue-property-decorator';
 
+const version = window.localStorage.getItem('version','0.0.1') || '0';
+const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+if (version === '0.0.1'){
+  //数据迁移/数据库升级
+  recordList.forEach(record =>{
+    record.createAt = new Date(2020,0,1);
+  });
+  window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
+}
+window.localStorage.setItem('version','0.0.2');
+
 type Record = {
   tags: string[];
   notes: string[];
   type: string;
-  amount: number;
+  amount: number;  //数据类型
+  createAt: Date | undefined;  //类/构造函数 或写成 createAt?: Date
 }
 
 @Component({
@@ -28,10 +40,8 @@ type Record = {
 })
 export default class Money extends Vue {
   tags = ['衣','食','住','行'];
-  record: Record = {
-    tags: [], notes: '', type: '-', amount: 0
-  };
-  recordList :Reacord[] = [];
+  record: Record = recordList;
+  recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
   onUpdateTags(value: string[]){
     this.record.tags = value;
   }
@@ -39,7 +49,8 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
   saveRecord(){
-    const record2 =JSON.parse(JSON.stringify((this.record)));
+    const record2: Record =JSON.parse(JSON.stringify((this.record)));
+    record2.createAt = new Date();
     this.recordList.push(record2);
   }
   @Watch('recordList')
