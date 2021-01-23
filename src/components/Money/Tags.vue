@@ -32,7 +32,7 @@ export default class Tags extends Vue {
   };
 
   create() {
-    const name = window.prompt(' 请输入标签名 ')；
+    const name = window.prompt(' 请输入标签名 ');
       if (name === '') {
         window.alert('标签名不能为空');
       } else {
@@ -46,6 +46,7 @@ export default class Tags extends Vue {
 
 <style lang="scss" scoped>
 .tags {
+  background: white;
   font-size: 14px;
   padding: 16px;
   flex-grow: 1;

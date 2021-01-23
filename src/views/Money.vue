@@ -2,7 +2,12 @@
     <Layout class-prefix="layout">
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
       <Types :value.sync="record.type"  />
-      <Notes @update:value="onUpdateNotes"/>
+      <div class="notes">
+        <FormItem field-name="备注"
+                  placeholder="请在这里输入备注"
+                  @update:value="onUpdateNotes"/>
+      </div>
+
       <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
     </Layout>
 </template>
@@ -11,34 +16,22 @@
 import Vue from 'vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import Types from '@/components/Money/Types.vue';
-import Notes from '@/components/Money/Notes.vue';
+import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component,Watch} from 'vue-property-decorator';
-import {recordListModel} from '@/models/recordListModel';
+import recordListModel from '@/models/recordListModel';
 import tagsListModel from '@/models/tagsListModel';
-
-const version = window.localStorage.getItem('version','0.0.1') || '0';
 
 const recordList = recordListModel.fetch();
 const tagsList = tagsListModel.fetch();
 
-if (version === '0.0.1'){
-  //数据迁移/数据库升级
-  recordList.forEach(record =>{
-    record.createAt = new Date(2020,0,1);
-  });
-  window.localStorage.setItem('recordList',JSON.stringify(this.recordList));
-}
-window.localStorage.setItem('version','0.0.2');
-
-
 
 @Component({
-  components: {Tags, Notes, Types, NumberPad},
+  components: {Tags, FormItem, Types, NumberPad},
 })
 export default class Money extends Vue {
   tags = tagsList;
-  record: RecordItem = recordList;
+  record: RecordItem[] = recordList;
   recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
   onUpdateTags(value: string[]){
     this.record.tags = value;
@@ -61,5 +54,8 @@ export default class Money extends Vue {
   .layout-content{
     display: flex;
     flex-direction: column-reverse;
+  }
+  .notes{
+    padding: 12px 0;
   }
 </style>

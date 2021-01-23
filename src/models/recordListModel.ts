@@ -10,4 +10,4 @@ const recordListModel = {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(data));
     }
 };
-export {recordListModel};
+export default recordListModel;
