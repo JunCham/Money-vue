@@ -1,5 +1,6 @@
 <template>
     <Layout class-prefix="layout">
+      {{record}}
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
       <Types :value.sync="record.type"  />
       <div class="notes">
@@ -31,12 +32,15 @@ const tagsList = tagsListModel.fetch();
 })
 export default class Money extends Vue {
   tags = tagsList;
-  record: RecordItem[] = recordList;
-  recordList: RecordItem[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
+    tags:[], notes:'',type:'-',amount:0
+  };
+      // JSON.parse(window.localStorage.getItem('recordList') || '[]');
   onUpdateTags(value: string[]){
     this.record.tags = value;
   }
-  onUpdateNotes(value: string[]){
+  onUpdateNotes(value: string){
     this.record.notes = value;
   }
   saveRecord(){
