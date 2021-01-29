@@ -22,4 +22,8 @@ type TagsListModel = {
 interface window {
     tagList: Tag[];
     createTag: (name:string) =>coid;
-}
+    findTag: (id:string) => Tag | undefined;
+    removeTag: (id: string) => boolean;
+    updateTag: TagsListModel['update'];  //跟上面 TagsListModel 一样所以可以简写成这样
+    recordList: RecordItem[];
+    createRecord:(record:RecordItem)=> void;}
