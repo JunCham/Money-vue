@@ -21,13 +21,12 @@ import {Component} from 'vue-property-decorator';
 
 @Component({
   components: {Tags, FormItem, Types, NumberPad},
-  computed: {  //computed 可以在外部更新值的时候跟着更新数据。
-    recordList(){
-      return this.$store.state.recordList;
-    }
-  }
+  // computed: {  //computed 可以在外部更新值的时候跟着更新数据。}
 })
 export default class Money extends Vue {
+  get recordList(){
+    return this.$store.state.recordList;
+  }
   record: RecordItem = {
     tags:[], notes:'',type:'-',amount:0
   };
