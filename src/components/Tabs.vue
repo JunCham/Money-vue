@@ -11,7 +11,7 @@
 import Vue from 'vue'
 import {Component, Prop} from 'vue-property-decorator';
 
-type DataSourceItem = {text: string; value: string}
+type DataSourceItem = {text: string; value: string}    //括号不是逗号？存疑
 
 @Component
 export default class Tabs extends Vue{
