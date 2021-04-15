@@ -3,7 +3,10 @@ type RootState = {
     createRecordError: Error | null,
     createTagError: Error | null,
     tagList: Tag[],
-    currentTag?: Tag
+    currentTag?: Tag,
+    pictureList: string[],
+    pictureName: string[],
+    pictureView: string[],
 }
 
 type RecordItem = {
@@ -11,7 +14,8 @@ type RecordItem = {
     notes: string;
     type: string;
     amount: number;  //数据类型
-    createdAt?: string  // | undefined;  类/构造函数 或写成 createAt?: Date
+    createdAt?: string;  // | undefined;  类/构造函数 或写成 createAt?: Date
+
 }
 
 type Tag = {

@@ -1,8 +1,7 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source = "recordTypeList" :value.sync ="type"/>
-    <Tabs class-prefix="interval" :data-source = "intervalList"
-          :value.sync ="interval" />
+
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -102,7 +101,7 @@ export default class Statistics extends Vue{
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a,b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-    if (newList.length === 0) {return [];}
+    if (newList.length === 0) {return [] as Result;}  //{return []}
     type Result = {title: string; total?: number; items: RecordItem[]}[];
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++ ){
@@ -115,7 +114,9 @@ export default class Statistics extends Vue{
       }
     }
     result.map(group => {
-      group.total = group.items.reduce((sum,item) => sum + item.amount,0)
+      group.total = group.items.reduce((sum,item) => {
+        return sum + item.amount;
+      },0)
     })
     return result;
   }

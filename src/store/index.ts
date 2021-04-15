@@ -14,8 +14,25 @@ const store = new Vuex.Store({
     createTagError: null,
     tagList: [],
     currentTag: undefined,
+    pictureList: ['衣','食','住','行'],
+    pictureName: ['clothes','food','house','car'],
+    pictureView: [],
   } as RootState,
   mutations: { // methods
+
+      picture(state){
+          for (let i=0;i<state.tagList.length;i++){
+              const index2 = state.pictureList.indexOf(state.tagList[i].name);
+              if (index2>=0){
+                  state.pictureView.push(state.pictureName[index2]);
+              }else {
+                  state.pictureView.push('default');
+              }
+          }
+          console.log(state.pictureView);
+      },
+
+
     setCurrentTag(state, id: string){
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
     },
@@ -76,6 +93,10 @@ const store = new Vuex.Store({
     createTag(state, name :string){
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
+      // if (!state.tagList || state.tagList.length >4){
+      //     const picture =
+      // }
+      // const picture = state.tagList.map(item => item.picture);
       if (names.indexOf(name) >= 0){
         window.alert('标签名重复');
         state.createTagError = new Error('tag name duplicated');
@@ -85,9 +106,11 @@ const store = new Vuex.Store({
       state.tagList.push({id, name: name});
       store.commit('saveTags');
     },
+
     saveTags(state){
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
+
   },
 });
 

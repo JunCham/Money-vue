@@ -1,14 +1,20 @@
 <template>
     <Layout class-prefix="layout">
       <NumberPad :value.sync="record.amount" @submit="saveRecord" />
-      <Tags :data-source="recordTypeList"
+      <Tabs :data-source="recordTypeList"
             :value.sync = "record.type"/>
       <div class="notes">
         <FormItem field-name="备注"
                   placeholder="请在这里输入备注"
                   :value.sync = "record.notes"/>
       </div>
-      <Tags @update:value = "record.tags = $event"/>
+      <Tags @update:value = "record.tags = $event"
+            v-show="record.type === '-'"
+      />
+      <Tags @update:value = "record.tags = $event"
+            v-show="record.type === '+'"
+      />
+
     </Layout>
 </template>
 
@@ -19,23 +25,24 @@ import FormItem from '@/components/Money/FormItem.vue';
 import Tags from '@/components/Money/Tags.vue';
 import {Component} from 'vue-property-decorator';
 import recordTypeList from '@/constant/recordTypeList';
+import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {Tags, FormItem, NumberPad},
-  // computed: {  //computed 可以在外部更新值的时候跟着更新数据。}
+  components: {Tags, FormItem, NumberPad,Tabs},
+  // computed: { },  //computed 可以在外部更新值的时候跟着更新数据。
 })
 export default class Money extends Vue {
   get recordList(){
     return this.$store.state.recordList;
   }
 
-  recordTypeList = recordTypeList
+  recordTypeList = recordTypeList;
 
   record: RecordItem = {
-    tags:[], notes:'',type:'-',amount:0
+    tags:[], notes:'',type:'-',amount:0,
   };
-  create(){
-    this.$store.commit('fetchRecords')
+  created(){
+    this.$store.commit('fetchRecords'); //create => created 改
   }
   onUpdateNotes(value: string){
     this.record.notes = value;
@@ -50,6 +57,8 @@ export default class Money extends Vue {
       this.record.notes = '';
     }
   }
+
+
 }
 </script>
 <style lang="scss" scoped>

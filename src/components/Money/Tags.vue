@@ -6,10 +6,14 @@
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggle(tag)">{{ tag.name }}
+          @click="toggle(tag)">
+        <div>
+          {{ tag.name }}
+        </div>
       </li>
     </ul>
   </div>
+
 </template>
 
 <script lang="ts">
@@ -17,16 +21,37 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import {mixins} from 'vue-class-component';
 import TagHelper from '@/mixins/TagHelper';
-
+import tagStore from '@/store/tagStore';
 
 @Component
 export default class Tags extends mixins(TagHelper) {
-
   selectedTags: string[] = [];
-  get tagList(){
-    return this.$store.state.tagList();
+
+  // pictureList: string[] = ['衣','食','住','行'];
+  // pictureName: string[] =  ['clothes','food','house','car'];
+  // pictureView: string[] = [];
+  // picture(){
+  //   for (let i=0;i<this.$store.state.tagList.length;i++){
+  //     const index2 = this.pictureList.indexOf(this.$store.state.tagList[i].name);
+  //     if (index2>=0){
+  //       this.pictureView.push(this.pictureName[index2]);
+  //     }else {
+  //       this.pictureView.push('default');
+  //     }
+  //   }
+  // }
+
+
+  beforePicture(){
+    this.$store.commit('picture');
   }
-  created(){
+
+
+  get tagList() {
+    return this.$store.state.tagList;
+  }
+
+  created() {
     this.$store.commit('fetchTags');
   }
   toggle(tag: string) {
@@ -50,13 +75,11 @@ export default class Tags extends mixins(TagHelper) {
   flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
-
   > .current {
     display: flex;
     flex-wrap: wrap;
-
     > li {
-      $bg: #d9d9d9;
+      $bg: #D9D9D9;
       background: $bg;
       $h: 24px;
       height: $h;
@@ -65,17 +88,14 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
-
       &.selected {
-        background: darken($bg, 30%);
+        background: darken($bg, 50%);
         color: white;
       }
     }
   }
-
   > .new {
     padding-top: 16px;
-
     button {
       background: transparent;
       border: none;
