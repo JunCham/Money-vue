@@ -56,7 +56,7 @@ export default class Tags extends mixins(TagHelper) {
 
 
   iconName = ['衣','食','住','行'];
-  iconMach = ["clothes","food","house","car"];
+  iconMach = ["clothes","food","house","bus"];
   iconSet = '';
 
   getIcon(iconIn: string){
