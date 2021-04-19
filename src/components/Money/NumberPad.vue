@@ -5,18 +5,16 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="inputContent">+</button>
+      <button @click="remove">删除</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button >-</button>
+      <button @click="clear">清空</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="inputContent">.</button>
       <button @click="inputContent" class="zero">0</button>
-      <button @click="remove">删除</button>
-      <button @click="clear">清空</button>
       <button @click="ok" class="ok">OK</button>
     </div>
   </div>
@@ -95,11 +93,12 @@ export default class NumberPad extends Vue {
 
       &.ok {
         height: 64px;
+        width: 25*2%;
         float: right;
       }
 
       &.zero {
-        width: 25%;
+        width: 25*2%;
       }
 
       $bg: #f2f2f2;
@@ -124,11 +123,11 @@ export default class NumberPad extends Vue {
         background: darken($bg, 4*4%);
       }
 
-      &:nth-child(12), &:nth-child(14) {
+      &:nth-child(12){
         background: darken($bg, 4*5%);
       }
 
-      &:nth-child(15) {
+      &:nth-child(14) {
         background: darken($bg, 4*6%);
       }
 
