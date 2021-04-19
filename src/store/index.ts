@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     pictureName: ['clothes','food','house','car'],
     pictureView: [],
   } as RootState,
+
   mutations: { // methods
 
       picture(state){
@@ -93,7 +94,7 @@ const store = new Vuex.Store({
     createTag(state, name :string){
       state.createTagError = null;
       const names = state.tagList.map(item => item.name);
-      // if (!state.tagList || state.tagList.length >4){
+        // if (!state.tagList || state.tagList.length >4){
       //     const picture =
       // }
       // const picture = state.tagList.map(item => item.picture);

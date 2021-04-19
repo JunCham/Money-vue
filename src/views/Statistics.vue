@@ -1,7 +1,6 @@
 <template>
   <Layout>
     <Tabs class-prefix="type" :data-source = "recordTypeList" :value.sync ="type"/>
-
     <ol v-if="groupedList.length > 0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
@@ -29,7 +28,7 @@
    }
    ::v-deep {
      .type-tabs-item {
-       background: #c4c4c4;
+       background: darken(rgba(234,250,245),25%);
        &.selected{
          background: white;
          &::after {

@@ -22,7 +22,7 @@
 }
 
 .content {
-  border: 1px solid blue;
+  border: 1px solid darken(rgba(234,250,245),25%);;
   overflow: auto;
   flex-grow: 1;
 }

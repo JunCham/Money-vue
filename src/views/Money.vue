@@ -14,6 +14,7 @@
       <Tags @update:value = "record.tags = $event"
             v-show="record.type === '+'"
       />
+      <div class="head">小陈的记账本</div>
 
     </Layout>
 </template>
@@ -41,6 +42,8 @@ export default class Money extends Vue {
   record: RecordItem = {
     tags:[], notes:'',type:'-',amount:0,
   };
+
+
   created(){
     this.$store.commit('fetchRecords'); //create => created 改
   }
@@ -68,5 +71,11 @@ export default class Money extends Vue {
   }
   .notes{
     padding: 12px 0;
+  }
+  .head {
+    text-align: center;
+    background: darken(rgba(234,250,245),25%);
+    height: 36px;
+    line-height: 36px;
   }
 </style>

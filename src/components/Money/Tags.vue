@@ -7,9 +7,12 @@
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-        <div>
-          {{ tag.name }}
-        </div>
+
+          <Icon class="tagIcon" v-bind:name = getIcon(tag.name) />
+          <div class="tagName">
+            {{ tag.name }}
+          </div>
+
       </li>
     </ul>
   </div>
@@ -46,9 +49,24 @@ export default class Tags extends mixins(TagHelper) {
     this.$store.commit('picture');
   }
 
-
   get tagList() {
     return this.$store.state.tagList;
+  }
+
+
+
+  iconName = ['衣','食','住','行'];
+  iconMach = ["clothes","food","house","car"];
+  iconSet = '';
+
+  getIcon(iconIn: string){
+    const iconNumber = this.iconName.indexOf(iconIn);
+    if (iconNumber >= 0){
+      this.iconSet = this.iconMach[iconNumber];
+    } else{
+      this.iconSet = "default";
+    }
+    return this.iconSet;
   }
 
   created() {
@@ -79,18 +97,38 @@ export default class Tags extends mixins(TagHelper) {
     display: flex;
     flex-wrap: wrap;
     > li {
+      position: relative;
       $bg: #D9D9D9;
-      background: $bg;
-      $h: 24px;
+      $bg2: rgba(254,240,235);
+      background: $bg2;//$bg;
+      border: 1px solid darken($bg2,20%);
+      $h: 48px;
       height: $h;
+      width: $h*1.2;
       line-height: $h;
-      border-radius: $h/2;
+      border-radius: 8px;
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      > .tagIcon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -1.6em;
+        margin-left: -1em;
+      }
+      > .tagName {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -12px;
+        margin-left: -18px;
+        width: 36px;
+        text-align: center;
+      }
       &.selected {
-        background: darken($bg, 50%);
-        color: white;
+        background: darken($bg, 20%);
+        color: black;
       }
     }
   }

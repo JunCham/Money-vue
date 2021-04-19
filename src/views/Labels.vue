@@ -1,5 +1,6 @@
 <template>
     <Layout>
+      <div class="head">小陈的记账本</div>
       <div class="tags">
         <router-link class="tag"
                      v-for="tag in tags" :key="tag.id"
@@ -35,6 +36,12 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+.head {
+  text-align: center;
+  background: darken(rgba(234,250,245),25%);
+  height: 36px;
+  line-height: 36px;
+}
 .tags {
   background: white;
   font-size: 16px;

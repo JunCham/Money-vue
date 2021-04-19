@@ -5,16 +5,18 @@
       <button @click="inputContent">1</button>
       <button @click="inputContent">2</button>
       <button @click="inputContent">3</button>
-      <button @click="remove">删除</button>
+      <button @click="inputContent">+</button>
       <button @click="inputContent">4</button>
       <button @click="inputContent">5</button>
       <button @click="inputContent">6</button>
-      <button @click="clear">清空</button>
+      <button @click="inputContent">-</button>
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
       <button @click="inputContent">.</button>
       <button @click="inputContent" class="zero">0</button>
+      <button @click="remove">删除</button>
+      <button @click="clear">清空</button>
       <button @click="ok" class="ok">OK</button>
     </div>
   </div>
@@ -58,7 +60,16 @@ export default class NumberPad extends Vue {
     this.output = '0';
   }
   ok(){
-    const number = parseFloat(this.output);
+    let sth = 0;
+    if(this.output.indexOf('+') >0 || this.output.indexOf('-') > 0){
+      const number1 = this.output.replace(/[^-()\d/*+.]/g, '');
+      const XXX = eval(number1);
+      sth += XXX;
+    } else {
+      const YYY = parseFloat(this.output);
+      sth += YYY;
+    }
+    const number = sth;
     this.$emit('update:value',number);
     this.$emit('submit',number);
     this.output = '0';
@@ -93,46 +104,46 @@ export default class NumberPad extends Vue {
 
       &.ok {
         height: 64px;
-        width: 25*2%;
+        width: 25%;
         float: right;
       }
 
       &.zero {
-        width: 25*2%;
+        width: 25%;
       }
 
       $bg: #f2f2f2;
-
+      $bg2: rgba(234,250,245);
       &:nth-child(1) {
-        background: $bg;
+        background: $bg2;
       }
 
       &:nth-child(2), &:nth-child(5) {
-        background: darken($bg, 4%);
+        background: darken($bg2, 4%);
       }
 
       &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-        background: darken($bg, 4*2%);
+        background: darken($bg2, 4*2%);
       }
 
-      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-        background: darken($bg, 4*3%);
+      &:nth-child(4), &:nth-child(7), &:nth-child(10) , &:nth-child(13){
+        background: darken($bg2, 4*3%);
       }
 
-      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-        background: darken($bg, 4*4%);
+      &:nth-child(8), &:nth-child(11), &:nth-child(14) {
+        background: darken($bg2, 4*4%);
       }
 
-      &:nth-child(12){
-        background: darken($bg, 4*5%);
-      }
-
-      &:nth-child(14) {
-        background: darken($bg, 4*6%);
+      &:nth-child(12), &:nth-child(15){
+        background: darken($bg2, 4*5%);
       }
 
       &:nth-child(16) {
-        background: darken($bg, 4*7%);
+        background: darken($bg2, 4*6%);
+      }
+
+      &:nth-child(17) {
+        background: darken($bg2, 4*7%);
       }
     }
   }
