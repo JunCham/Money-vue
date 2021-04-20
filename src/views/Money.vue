@@ -43,7 +43,6 @@ export default class Money extends Vue {
     tags:[], notes:'',type:'-',amount:0,
   };
 
-
   created(){
     this.$store.commit('fetchRecords'); //create => created 改
   }

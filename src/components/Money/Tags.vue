@@ -11,7 +11,6 @@
           <div class="tagName">
             {{ tag.name }}
           </div>
-
       </li>
     </ul>
   </div>
@@ -35,16 +34,17 @@ export default class Tags extends mixins(TagHelper) {
 
   iconName = ['衣','食','住','行'];
   iconMach = ["clothes","food","house","car"];
-  iconSet = '';
+  iconSet ='';
 
   getIcon(iconIn: string){
     const iconNumber = this.iconName.indexOf(iconIn);
+    let iconSet = '';
     if (iconNumber >= 0){
-      this.iconSet = this.iconMach[iconNumber];
+      iconSet = this.iconMach[iconNumber];
     } else{
-      this.iconSet = "default";
+      iconSet = "default";
     }
-    return this.iconSet;
+    return iconSet;
   }
 
   created() {
