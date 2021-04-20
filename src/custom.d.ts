@@ -4,9 +4,6 @@ type RootState = {
     createTagError: Error | null,
     tagList: Tag[],
     currentTag?: Tag,
-    pictureList: string[],
-    pictureName: string[],
-    pictureView: string[],
 }
 
 type RecordItem = {

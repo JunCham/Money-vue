@@ -6,23 +6,6 @@ const tagStore = {
     //tag store
     tagList: [] as Tag[],
 
-    pictureList: ['衣','食','住','行'],
-    pictureName: ['clothes','food','house','car'],
-    pictureView: [] as string[],
-
-    picture(){
-        for (let i=0;i<this.tagList.length;i++){
-            const names = this.tagList.map(item => item.name);
-            const index2 = this.pictureList.indexOf(names[i]);
-            if (index2>=0){
-                this.pictureView.push(this.pictureName[index2]);
-            }else {
-                this.pictureView.push('default');
-            }
-        }
-        return this.pictureView;
-    },
-
     fetchTags(){
         this.tagList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
         return this.tagList;

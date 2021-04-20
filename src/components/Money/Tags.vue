@@ -7,7 +7,6 @@
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
           @click="toggle(tag)">
-
           <Icon class="tagIcon" v-bind:name = getIcon(tag.name) />
           <div class="tagName">
             {{ tag.name }}
@@ -30,30 +29,9 @@ import tagStore from '@/store/tagStore';
 export default class Tags extends mixins(TagHelper) {
   selectedTags: string[] = [];
 
-  // pictureList: string[] = ['衣','食','住','行'];
-  // pictureName: string[] =  ['clothes','food','house','car'];
-  // pictureView: string[] = [];
-  // picture(){
-  //   for (let i=0;i<this.$store.state.tagList.length;i++){
-  //     const index2 = this.pictureList.indexOf(this.$store.state.tagList[i].name);
-  //     if (index2>=0){
-  //       this.pictureView.push(this.pictureName[index2]);
-  //     }else {
-  //       this.pictureView.push('default');
-  //     }
-  //   }
-  // }
-
-
-  beforePicture(){
-    this.$store.commit('picture');
-  }
-
   get tagList() {
     return this.$store.state.tagList;
   }
-
-
 
   iconName = ['衣','食','住','行'];
   iconMach = ["clothes","food","house","car"];
